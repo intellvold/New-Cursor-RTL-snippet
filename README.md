@@ -1,3 +1,40 @@
+# Cursor Chat RTL Helper
+
+Small helper script to make Cursor's chat interface display messages in **right‑to‑left (RTL)** layout for languages like Persian/Arabic, while keeping all **code blocks and editors left‑to‑right (LTR)**.
+
+The script only changes text direction and alignment. **Fonts and sizes stay exactly as Cursor defines them.**
+
+---
+
+## Features
+
+- 🔁 RTL layout for:
+  - AI messages
+  - User messages
+  - Message lists and basic markdown content
+- ↔️ Keep code strictly LTR:
+  - Chat code blocks
+  - Syntax‑highlighted code
+  - Monaco editor (main code editor)
+- No dependencies, no extensions – just a DevTools snippet.
+
+---
+
+## How to use (Desktop Cursor)
+
+1. **Open Developer Tools**
+   - In Cursor, press: `Ctrl + Shift + P`
+   - Type: `Toggle Developer Tools` and run it  
+   *(or use `Ctrl + Shift + I` if it works on your system)*
+
+2. **Create a Snippet**
+   - In the DevTools window, go to the `Sources` tab.
+   - Open the `Snippets` section.
+   - Create a new snippet (e.g. `cursor-rtl.js`).
+
+3. **Paste this script into the snippet**
+
+```js
 (function () {
     const existing = document.getElementById('cursor-rtl-style');
     if (existing) existing.remove();
@@ -6,7 +43,7 @@
     style.id = 'cursor-rtl-style';
 
     style.textContent = `
-        /* --- 1. متن پیام‌های AI و کاربر (RTL + فونت مناسب) --- */
+        /* Chat markdown & messages: RTL */
         .markdown-root,
         .markdown-root *,
         div[class*="markdown"],
@@ -15,18 +52,14 @@
         div[data-message-role="user"] .markdown-root {
             direction: rtl !important;
             text-align: right !important;
-            font-size: 16px !important;      /* کمی بزرگ‌تر از پیش‌فرض، کوچیک‌تر از 18 */
-            line-height: 1.9 !important;
         }
 
-        /* ورودی کاربر پایین صفحه */
+        /* Chat input (composer) RTL */
         .aislash-editor-input, 
         .aislash-editor-input-readonly,
         .composer-human-message {
             direction: rtl !important;
             text-align: right !important;
-            font-size: 16px !important;
-            line-height: 1.9 !important;
         }
 
         .aislash-editor-placeholder {
@@ -36,14 +69,14 @@
             left: auto !important;
         }
 
-        /* لیست‌ها */
+        /* Lists in markdown */
         .markdown-root ul, 
         .markdown-root ol {
             padding-right: 20px !important;
             padding-left: 0 !important;
         }
 
-        /* جدول‌ها (مثل قبل) */
+        /* Tables: outer LTR scroll, inner RTL content */
         .markdown-table-container {
             direction: ltr !important;
             overflow-x: auto !important;
@@ -66,7 +99,7 @@
             padding: 6px 10px !important;
         }
 
-        /* --- 2. کدها کاملاً LTR + فونت نرمال --- */
+        /* Chat code blocks: force LTR, keep Cursor's fonts/sizes */
         .composer-message-codeblock,
         .composer-message-codeblock *,
         .ui-code-block,
@@ -81,17 +114,14 @@
             direction: ltr !important;
             text-align: left !important;
             unicode-bidi: plaintext !important;
-            font-size: 13px !important;      /* اندازه مناسب برای کد */
-            line-height: 1.6 !important;
         }
 
-        /* اطمینان از اینکه بلوک کد تحت تأثیر RTL والد قرار نگیرد */
         .composer-message-codeblock {
             direction: ltr !important;
             text-align: left !important;
         }
 
-        /* ویرایشگر موناکو (ادیتور کد اصلی) */
+        /* Monaco editor: always LTR */
         .monaco-editor,
         .monaco-editor * {
             direction: ltr !important;
@@ -99,7 +129,7 @@
             unicode-bidi: plaintext !important;
         }
 
-        /* --- 3. Plan / Questionnaire (در صورت وجود) --- */
+        /* Plan / questionnaire UI RTL (if present) */
         #composer-toolbar-section,
         .composer-questionnaire-toolbar {
             direction: rtl !important;
