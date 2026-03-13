@@ -43,7 +43,6 @@ The script only changes text direction and alignment. **Fonts and sizes stay exa
     style.id = 'cursor-rtl-style';
 
     style.textContent = `
-        /* Chat markdown & messages: RTL */
         .markdown-root,
         .markdown-root *,
         div[class*="markdown"],
@@ -52,14 +51,17 @@ The script only changes text direction and alignment. **Fonts and sizes stay exa
         div[data-message-role="user"] .markdown-root {
             direction: rtl !important;
             text-align: right !important;
+            font-size: 18px !important;
+            line-height: 1.9 !important;
         }
 
-        /* Chat input (composer) RTL */
         .aislash-editor-input, 
         .aislash-editor-input-readonly,
         .composer-human-message {
             direction: rtl !important;
             text-align: right !important;
+            font-size: 16px !important;
+            line-height: 1.9 !important;
         }
 
         .aislash-editor-placeholder {
@@ -69,14 +71,12 @@ The script only changes text direction and alignment. **Fonts and sizes stay exa
             left: auto !important;
         }
 
-        /* Lists in markdown */
         .markdown-root ul, 
         .markdown-root ol {
             padding-right: 20px !important;
             padding-left: 0 !important;
         }
 
-        /* Tables: outer LTR scroll, inner RTL content */
         .markdown-table-container {
             direction: ltr !important;
             overflow-x: auto !important;
@@ -99,7 +99,6 @@ The script only changes text direction and alignment. **Fonts and sizes stay exa
             padding: 6px 10px !important;
         }
 
-        /* Chat code blocks: force LTR, keep Cursor's fonts/sizes */
         .composer-message-codeblock,
         .composer-message-codeblock *,
         .ui-code-block,
@@ -114,6 +113,8 @@ The script only changes text direction and alignment. **Fonts and sizes stay exa
             direction: ltr !important;
             text-align: left !important;
             unicode-bidi: plaintext !important;
+            font-size: 13px !important;
+            line-height: 1.6 !important;
         }
 
         .composer-message-codeblock {
@@ -121,7 +122,6 @@ The script only changes text direction and alignment. **Fonts and sizes stay exa
             text-align: left !important;
         }
 
-        /* Monaco editor: always LTR */
         .monaco-editor,
         .monaco-editor * {
             direction: ltr !important;
@@ -129,7 +129,6 @@ The script only changes text direction and alignment. **Fonts and sizes stay exa
             unicode-bidi: plaintext !important;
         }
 
-        /* Plan / questionnaire UI RTL (if present) */
         #composer-toolbar-section,
         .composer-questionnaire-toolbar {
             direction: rtl !important;
